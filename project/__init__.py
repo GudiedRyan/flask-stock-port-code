@@ -3,9 +3,11 @@ from logging.handlers import RotatingFileHandler
 import logging
 from flask.logging import default_handler
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 import os
 
 database = SQLAlchemy()
+db_migration = Migrate()
 
 def create_app():
     app = Flask(__name__,  template_folder='templates')
@@ -23,6 +25,7 @@ def create_app():
 
 def initialize_extensions(app):
     database.init_app(app)
+    db_migration.init_app(app, database)
 
 
 def register_blueprints(app):
