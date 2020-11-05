@@ -1,6 +1,7 @@
 import pytest
 from flask import current_app
 from project import create_app, database
+from project.models import Stock, User
 
 
 @pytest.fixture(scope='module')
@@ -21,3 +22,8 @@ def test_client():
 
         with flask_app.app_context():
             database.drop_all()
+
+@pytest.fixture(scope='module')
+def new_user():
+    user = User('obamium@email.com', 'GexIsTheBest431')
+    return user

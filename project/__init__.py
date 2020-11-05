@@ -4,14 +4,21 @@ import logging
 from flask.logging import default_handler
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_bcrypt import Bcrypt
 import os
 
 database = SQLAlchemy()
 db_migration = Migrate()
+bcrypt = Bcrypt()
 
 def create_app():
     app = Flask(__name__,  template_folder='templates')
 
+    ctx = app.app_context()
+    ctx.push()
+
+    with ctx:
+        pass
     config_type = os.getenv('CONFIG_TYPE', 'config.DevelopmentConfig')
     app.config.from_object(config_type)
 
@@ -26,7 +33,7 @@ def create_app():
 def initialize_extensions(app):
     database.init_app(app)
     db_migration.init_app(app, database)
-
+    bcrypt.init_app(app)
 
 def register_blueprints(app):
     from project.stocks import stocks_blueprint

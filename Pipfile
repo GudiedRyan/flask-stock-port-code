@@ -12,6 +12,7 @@ coverage = "*"
 pytest-cov = "*"
 flask-sqlalchemy = "*"
 flask-migrate = "*"
+flask-bcrypt = "*"
 
 [requires]
 python_version = "3.8"
